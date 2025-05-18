@@ -30,7 +30,7 @@ class _ExtendDatePageState extends State<ExtendDatePage> {
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
 
               Row(
                 children: [
@@ -38,12 +38,12 @@ class _ExtendDatePageState extends State<ExtendDatePage> {
                     width: 72,
                     height: 37,
                     decoration: BoxDecoration(
-                      color: Color(0xFF1600C8),
+                      color: const Color(0xFF1600C8),
                       borderRadius: BorderRadius.circular(8),
                     ),
-                    child: Align(
+                    child: const Align(
                       alignment: Alignment.center,
-                      child: const Text(
+                      child: Text(
                         "1hr",
                         style: TextStyle(
                           color: Colors.white,
@@ -53,63 +53,17 @@ class _ExtendDatePageState extends State<ExtendDatePage> {
                       ),
                     ),
                   ),
-                  SizedBox(width: 20),
+                  const SizedBox(width: 20),
                   Container(
                     width: 72,
                     height: 37,
                     decoration: BoxDecoration(
-                      color: Color(0xFF1600C8),
+                      color: const Color(0xFF1600C8),
                       borderRadius: BorderRadius.circular(8),
                     ),
-                    child: Align(
+                    child: const Align(
                       alignment: Alignment.center,
-                      child: const Text(
-                        "2hr",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-
-              SizedBox(height: 20),
-
-              Row(
-                children: [
-                  Container(
-                    width: 72,
-                    height: 37,
-                    decoration: BoxDecoration(
-                      color: Color(0xFF1600C8),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Align(
-                      alignment: Alignment.center,
-                      child: const Text(
-                        "1hr",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: 20),
-                  Container(
-                    width: 72,
-                    height: 37,
-                    decoration: BoxDecoration(
-                      color: Color(0xFF1600C8),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Align(
-                      alignment: Alignment.center,
-                      child: const Text(
+                      child: Text(
                         "2hr",
                         style: TextStyle(
                           color: Colors.white,
@@ -124,18 +78,64 @@ class _ExtendDatePageState extends State<ExtendDatePage> {
 
               const SizedBox(height: 20),
 
-              Text(
+              Row(
+                children: [
+                  Container(
+                    width: 72,
+                    height: 37,
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF1600C8),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: const Align(
+                      alignment: Alignment.center,
+                      child: Text(
+                        "1hr",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 20),
+                  Container(
+                    width: 72,
+                    height: 37,
+                    decoration: BoxDecoration(
+                      color: const Color(0xFF1600C8),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: const Align(
+                      alignment: Alignment.center,
+                      child: Text(
+                        "2hr",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+
+              const SizedBox(height: 20),
+
+              const Text(
                 "Delivery date",
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
 
-              SizedBox(height: 15),
+              const SizedBox(height: 15),
 
               Container(
                 width: 306,
                 height: 55,
                 decoration: BoxDecoration(
-                  color: Color(0xFF1600C8),
+                  color: const Color(0xFF1600C8),
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: Row(
@@ -145,11 +145,11 @@ class _ExtendDatePageState extends State<ExtendDatePage> {
                       width: 103,
                       height: 35,
                       decoration: BoxDecoration(
-                        color: Color.fromARGB(255, 255, 255, 255),
+                        color: const Color.fromARGB(255, 255, 255, 255),
                         borderRadius: BorderRadius.circular(4),
                       ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(2.0),
+                      child: const Padding(
+                        padding: EdgeInsets.all(2.0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -168,11 +168,11 @@ class _ExtendDatePageState extends State<ExtendDatePage> {
                       width: 103,
                       height: 35,
                       decoration: BoxDecoration(
-                        color: Color.fromARGB(255, 255, 255, 255),
+                        color: const Color.fromARGB(255, 255, 255, 255),
                         borderRadius: BorderRadius.circular(4),
                       ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(2.0),
+                      child: const Padding(
+                        padding: EdgeInsets.all(2.0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -191,14 +191,14 @@ class _ExtendDatePageState extends State<ExtendDatePage> {
                 ),
               ),
 
-              SizedBox(height: 15),
+              const SizedBox(height: 15),
 
-              Text(
+              const Text(
                 "Extend date",
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
 
-              SizedBox(height: 15),
+              const SizedBox(height: 15),
 
               Container(
                 width: 306,
@@ -217,23 +217,23 @@ class _ExtendDatePageState extends State<ExtendDatePage> {
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(4),
                       ),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 6.0),
+                      child: const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 6.0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Expanded(
                               child: Text(
                                 '--/--/----',
-                                style: const TextStyle(
+                                style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   decoration: TextDecoration.underline,
                                   decorationStyle: TextDecorationStyle.dotted,
                                 ),
                               ),
                             ),
-                            const SizedBox(width: 5),
-                            const Icon(Icons.calendar_month, size: 18),
+                            SizedBox(width: 5),
+                            Icon(Icons.calendar_month, size: 18),
                           ],
                         ),
                       ),
@@ -245,11 +245,11 @@ class _ExtendDatePageState extends State<ExtendDatePage> {
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(4),
                       ),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 6.0),
+                      child: const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 6.0),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: const [
+                          children: [
                             Text(
                               '00:00 AA',
                               style: TextStyle(fontWeight: FontWeight.bold),
@@ -262,7 +262,7 @@ class _ExtendDatePageState extends State<ExtendDatePage> {
                   ],
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
 
               Column(
                 children: [

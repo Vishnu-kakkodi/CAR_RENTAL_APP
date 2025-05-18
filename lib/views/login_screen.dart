@@ -1,7 +1,7 @@
 import 'package:car_rental_app/controllers/auth_controller.dart';
 import 'package:car_rental_app/views/home_screen.dart';
+import 'package:car_rental_app/views/signup_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:car_rental_app/views/otp_screen.dart';
 import 'package:car_rental_app/widgect/blurred_circle.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -17,13 +17,17 @@ class _LoginScreenState extends State<LoginScreen> {
   final AuthController _authController = AuthController();
 
   @override
-  void dispose(){
+  void dispose() {
     _mobileController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+    final height = size.height;
+    final width = size.width;
+
     return Scaffold(
       body: Stack(
         children: [
@@ -47,13 +51,15 @@ class _LoginScreenState extends State<LoginScreen> {
               ],
             ),
           ),
-
           Align(
             alignment: Alignment.bottomCenter,
             child: Container(
-              height: 615,
+              height: height * 0.75,
               width: double.infinity,
-              padding: const EdgeInsets.all(24),
+              padding: EdgeInsets.symmetric(
+                horizontal: width * 0.06,
+                vertical: height * 0.04,
+              ),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: const BorderRadius.only(
@@ -65,39 +71,47 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const SizedBox(height: 24),
+                  SizedBox(height: height * 0.02),
                   const Text(
                     "Login",
                     style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
                   ),
-                  const SizedBox(height: 8),
+                  SizedBox(height: height * 0.01),
                   const Text(
                     "Our app is waiting for Campaign your ideas",
                     style: TextStyle(fontSize: 14, color: Colors.black54),
                   ),
-                  const SizedBox(height: 32),
-                   TextField(
+                  SizedBox(height: height * 0.05),
+                  TextField(
                     keyboardType: TextInputType.phone,
                     controller: _mobileController,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       prefixIcon: Icon(Icons.phone),
                       hintText: "9898989898",
                       border: UnderlineInputBorder(),
                     ),
                   ),
-                  const SizedBox(height: 60),
+                  SizedBox(height: height * 0.08),
                   SizedBox(
                     height: 46,
-                    width: 350,
+                    width: double.infinity,
                     child: ElevatedButton(
                       onPressed: () async {
                         final mobile = _mobileController.text.trim();
-                        if(mobile.isEmpty) return;
-                        final isSuccess = await _authController.loginUser(context, mobile);
-                        if(isSuccess){
-                          Navigator.push(context, MaterialPageRoute(builder: (ctx)=>HomeScreen()));
-                        }else{
-                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Login Failed"))); 
+                        if (mobile.isEmpty) return;
+
+                        final isSuccess =
+                            await _authController.loginUser(context, mobile);
+                        if (isSuccess) {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (ctx) => const HomeScreen()),
+                          );
+                        } else {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text("Login Failed")),
+                          );
                         }
                       },
                       style: ElevatedButton.styleFrom(
@@ -110,6 +124,27 @@ class _LoginScreenState extends State<LoginScreen> {
                         "Login",
                         style: TextStyle(color: Colors.white),
                       ),
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  Expanded(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const Text("Don't have an account? "),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(context, MaterialPageRoute(builder: (_) => SignupScreen()));
+                          },
+                          child: const Text(
+                            "Sign Up",
+                            style: TextStyle(
+                              color: Color.fromARGB(255, 10, 32, 175),
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],

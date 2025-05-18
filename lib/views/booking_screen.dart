@@ -1,4 +1,10 @@
+
+import 'package:car_rental_app/models/booking_model.dart';
+import 'package:car_rental_app/providers/booking_provider.dart';
+import 'package:car_rental_app/utils/storage_helper.dart';
+import 'package:car_rental_app/views/car_detail_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class BookingScreen extends StatefulWidget {
   const BookingScreen({super.key});
@@ -8,42 +14,76 @@ class BookingScreen extends StatefulWidget {
 }
 
 class _BookingScreenState extends State<BookingScreen> {
+  // String? userId;
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(Duration.zero, () {
+      _loadBookings();
+      // _loadUserId();
+    });
+  }
+
+//   Future<void> _loadUserId() async {
+//   final id = await StorageHelper.getUserId();
+//   setState(() {
+//     userId = id;
+//   });
+// }
+
+  void _loadBookings() async {
+    String? userId = await StorageHelper.getUserId();
+    if (userId != null) {
+      await Provider.of<BookingProvider>(context, listen: false).loadBookings(userId);
+    } else {
+      print("User ID not found in SharedPreferences");
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    final screenSize = MediaQuery.of(context).size;
+    final screenWidth = screenSize.width;
+    final screenHeight = screenSize.height;
+    final paddingValue = screenWidth * 0.04;
+    
     return DefaultTabController(
-      length: 2,
+      length: 3,
       child: SafeArea(
         child: Scaffold(
           body: Column(
             children: [
-              SizedBox(height: 60),
-
+              SizedBox(height: screenHeight * 0.03),
               Row(
                 children: [
                   Padding(
-                    padding: const EdgeInsets.all(16.0),
+                    padding: EdgeInsets.all(paddingValue),
                     child: Container(
                       decoration: BoxDecoration(
                         color: Colors.grey.shade200,
                         shape: BoxShape.circle,
                       ),
                       child: IconButton(
-                        icon: Icon(Icons.arrow_back, color: Colors.black),
+                        icon: Icon(
+                          Icons.arrow_back, 
+                          color: Colors.black,
+                          size: screenWidth * 0.06, 
+                        ),
                         onPressed: () {
                           Navigator.pop(context);
                         },
                       ),
                     ),
                   ),
-                  SizedBox(width: 90),
+                  SizedBox(width: screenWidth * 0.1),
                   Expanded(
                     child: Row(
                       children: [
                         Text(
-                          "Booking",
+                          "Bookings",
                           style: TextStyle(
                             color: Colors.black,
-                            fontSize: 18,
+                            fontSize: screenWidth * 0.045, 
                             fontWeight: FontWeight.w800,
                           ),
                           overflow: TextOverflow.ellipsis,
@@ -53,65 +93,125 @@ class _BookingScreenState extends State<BookingScreen> {
                   ),
                 ],
               ),
-              SizedBox(height: 50,),
-              Container(
-                margin: const EdgeInsets.symmetric(horizontal: 16),
+              SizedBox(height: screenHeight * 0.02),
+              
+              Align(
+                alignment: Alignment.centerLeft,
                 child: TabBar(
-                  tabs: const [Tab(text: "Active"), Tab(text: "Completed")],
-                  labelColor: Colors.white,
-                  unselectedLabelColor: Color(0XFF1808C5),
-                  indicator: BoxDecoration(
-                    color: Color(0XFF1808C5),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  indicatorSize: TabBarIndicatorSize.tab,
-                  dividerColor: Colors.transparent,
-                ),
-              ),
-              Expanded(
-                child: TabBarView(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: ListView(
-                        children: [
-                          _buildBookingCard(
-                            carName: "Hyundai Verna",
-                            isAutomatic: true,
-                            seatingCapacity: 5,
-                            collectionDate: "26/12/23",
-                            collectionTime: "10:00AM",
-                            returnDate: "27/12/23",
-                            returnTime: "10:00AM",
-                            price: "5500",
-                            otp: "1234 44 1234",
-                            isCompleted: false,
+                  isScrollable: true,
+                  padding: EdgeInsets.zero,
+                  tabAlignment: TabAlignment.start,
+                  tabs: [
+                    Tab(
+                      child: SizedBox(
+                        width: screenWidth * 0.4, 
+                        height: screenHeight * 0.04, 
+                        child: Center(
+                          child: Text(
+                            "Active",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: screenWidth * 0.045,
+                            ),
                           ),
-                          const SizedBox(height: 16),
-                        ],
+                        ),
                       ),
                     ),
-
-                    Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: ListView(
-                        children: [
-                          _buildBookingCard(
-                            carName: "Hyundai Verna",
-                            isAutomatic: true,
-                            seatingCapacity: 5,
-                            collectionDate: "24/12/23",
-                            collectionTime: "10:00AM",
-                            returnDate: "25/12/23",
-                            returnTime: "10:00AM",
-                            price: "5000",
-                            otp: "",
-                            isCompleted: true,
+                    Tab(
+                      child: SizedBox(
+                        width: screenWidth * 0.4, 
+                        height: screenHeight * 0.04, 
+                        child: Center(
+                          child: Text(
+                            "Completed",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: screenWidth * 0.045, 
+                            ),
                           ),
-                        ],
+                        ),
+                      ),
+                    ),
+                    Tab(
+                      child: SizedBox(
+                        width: screenWidth * 0.4, 
+                        height: screenHeight * 0.04,
+                        child: Center(
+                          child: Text(
+                            "Cancelled",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: screenWidth * 0.045, 
+                            ),
+                          ),
+                        ),
                       ),
                     ),
                   ],
+                  labelColor: Colors.white,
+                  unselectedLabelColor: const Color(0XFF1808C5),
+                  indicator: BoxDecoration(
+                    color: const Color(0XFF1808C5),
+                    borderRadius: BorderRadius.circular(screenWidth * 0.02),
+                  ),
+                  indicatorSize: TabBarIndicatorSize.label,
+                  dividerColor: Colors.transparent,
+                ),
+              ),
+              
+              SizedBox(height: screenHeight * 0.02),
+              
+              Expanded(
+                child: Consumer<BookingProvider>(
+                  builder: (context, bookingProvider, child) {
+                    if (bookingProvider.isLoading) {
+                      return const Center(child: CircularProgressIndicator());
+                    }
+                    
+                    final activeBookings = bookingProvider.bookings
+                        .where((booking) => booking.isPending)
+                        .toList();
+                    
+                    final completedBookings = bookingProvider.bookings
+                        .where((booking) => booking.isCompleted)
+                        .toList();
+                    
+                    final cancelledBookings = bookingProvider.bookings
+                        .where((booking) => booking.isCancelled)
+                        .toList();
+
+                    return TabBarView(
+                      physics: const ClampingScrollPhysics(),
+                      children: [
+                        _buildBookingList(
+                          context,
+                          activeBookings,
+                          "No active bookings",
+                          paddingValue,
+                          screenWidth,
+                          screenHeight,
+                        ),
+                        
+                        _buildBookingList(
+                          context,
+                          completedBookings,
+                          "No completed bookings",
+                          paddingValue,
+                          screenWidth,
+                          screenHeight,
+                        ),
+                        
+                        _buildBookingList(
+                          context,
+                          cancelledBookings,
+                          "No cancelled bookings",
+                          paddingValue,
+                          screenWidth,
+                          screenHeight,
+                        ),
+                      ],
+                    );
+                  },
                 ),
               ),
             ],
@@ -121,175 +221,253 @@ class _BookingScreenState extends State<BookingScreen> {
     );
   }
 
-  Widget _buildBookingCard({
-    required String carName,
-    required bool isAutomatic,
-    required int seatingCapacity,
-    required String collectionDate,
-    required String collectionTime,
-    required String returnDate,
-    required String returnTime,
-    required String price,
-    required String otp,
-    required bool isCompleted,
-  }) {
-    return SingleChildScrollView(
-      child: Container(
-        // height: 142,
-        width: 343,
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(12),
-      border: Border(
-        bottom: BorderSide(color: Colors.grey.shade400, width: 2),
-        right: BorderSide(color: Colors.grey.shade400, width: 2),
+  Widget _buildBookingList(
+    BuildContext context,
+    List<Booking> bookings,
+    String emptyMessage,
+    double paddingValue,
+    double screenWidth,
+    double screenHeight,
+  ) {
+    if (bookings.isEmpty) {
+      return Center(
+        child: Text(
+          emptyMessage,
+          style: TextStyle(
+            fontSize: screenWidth * 0.04,
+            color: Colors.grey,
+          ),
+        ),
+      );
+    }
+
+    return Padding(
+      padding: EdgeInsets.all(paddingValue),
+      child: ListView.builder(
+        itemCount: bookings.length,
+        itemBuilder: (context, index) {
+          final booking = bookings[index];
+          return Column(
+            children: [
+              _buildBookingCard(
+                context,
+                booking: booking,
+                screenWidth: screenWidth,
+                screenHeight: screenHeight,
+              ),
+              SizedBox(height: screenHeight * 0.02), 
+            ],
+          );
+        },
       ),
-      boxShadow: [
-        BoxShadow(
-          color: Colors.grey.withOpacity(0.1),
-          offset: Offset(3, 3),
-          blurRadius: 10,
-          spreadRadius: 2,
-        ),
-      ],
-        ),
-        child: Stack(
-      clipBehavior: Clip.none,
-      children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
+    );
+  }
+
+Widget _buildBookingCard(
+  BuildContext context, {
+  required Booking booking,
+  required double screenWidth,
+  required double screenHeight,
+}) {
+  return GestureDetector(
+    onTap: (){
+      Navigator.push(context, MaterialPageRoute(builder: (context) => CarDetailsScreen(userId:booking.userId, bookingId: booking.id,)));
+    },
+    child: Container(
+      width: double.infinity,
+      decoration: BoxDecoration(
+        color: const Color.fromARGB(255, 255, 255, 255),
+        borderRadius: BorderRadius.circular(screenWidth * 0.03), 
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.2),
+            offset: const Offset(0, 2),
+            blurRadius: 6,
+          ),
+        ],
+      ),
+      child: Stack(
+        children: [
+          Padding(
+            padding: EdgeInsets.all(screenWidth * 0.04),
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        carName,
-                        style: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      const SizedBox(height: 10),
-                      Row(
-                        children: [
-                          SizedBox(
-                            height: 16,
-                            width: 16,
-                            child: Image.network(
-                              "https://s3-alpha-sig.figma.com/img/e8f8/65e2/c91404a46fa121357bb184688046fee5?Expires=1745798400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=pW1NOi4~~VuLgns94GS6zNf4TjhMsaPlyiPT0A7emGprzzlMwyXR9wo1Bfrlviw3OAfGoqiVtTXrmNeFCv7q5RwhpMIP0o~ML2Wlemjz-9u1kjdYIMXpcPjkFLuKl6tAuM67veHly88HC1EHWSbzqfPZVcgY3EYUHepgDEDt4TfdZbh990OMk3B9clgSdfnV13XO5Vu3oGk0Xgg1M0uSRMKMZUi9KnFlreJUV6D6lDJMUZwqWIOFgc8lcgep5B~XPaeBlXBSF8w1xrT2-TxH0XxVceIlT0aBFG5J2UqUa2cKMAuvpuJHwTkfT6X4vBZ44ItpZ8TUKqp3e0URCrbmGA__",
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                          const SizedBox(width: 4),
-                          Text(
-                            isAutomatic ? "Automatic" : "Manual",
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.grey.shade700,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 6),
-                      Row(
-                        children: [
-                          SizedBox(
-                            height: 16,
-                            width: 16,
-                            child: Image.network(
-                              "https://s3-alpha-sig.figma.com/img/336c/57e5/4a2a2fda0c10a8922a097165f5cf504e?Expires=1745798400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=OtP0WbSdfpPTD15Rb0Aj9wjdI2JGcS3ZMm~KGEeuFp4IyIhu1u7oiypu1xZWWxLwM4Q7sJhNJmBPfI6KxY5TVO7M1BBufRKf6Gooc8RKCm8Wfb1DbgtuWN2pq5I82Cu6fvvyNAowZy4WlihqP6nKb0gI9AtJz0p0AD~FDExGTursRRrOGmUKaIzZMqnuZvlsvRWIoPxBcCzVRjbiu50Fut5b5DsrAdtJ-HhgXBMb~~v8v6CV8rLjodi62HXUOUJPN22w-hoqLavh3UDzQuolQppuOiGGSJMO3lkWyGSK7kMCDDjgAdlqCT7w~o~5HHwAPD-6JLLgVOdieeMku1AF0A__",
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                          const SizedBox(width: 6),
-                          Text(
-                            "$seatingCapacity Seaters",
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.grey.shade700,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 10,
-                        vertical: 6,
-                      ),
-                      child: Text(
-                        isCompleted ? "Completed" : "OTP: $otp",
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: Colors.red.shade800,
-                          fontWeight: FontWeight.bold,
-                        ),
+                    Text(
+                      booking.car.name, 
+                      style: TextStyle(
+                        fontSize: screenWidth * 0.04, 
+                        fontWeight: FontWeight.bold,
+                        color: const Color.fromARGB(255, 0, 0, 0),
                       ),
                     ),
-                    const SizedBox(height: 6),
-                    Container(
-                      width: 120,
-                      height: 70,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        image: DecorationImage(
-                          image: NetworkImage("https://s3-alpha-sig.figma.com/img/0574/154b/c9aeb8e4b91ef16acae8a243ae5d83fc?Expires=1745798400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=HP8SyYpvbud2SvWWlyVOX8oKHg5KM9w15HDzqG0r8yCoVd5GGu8nEc9Si8AwdOP~PG-EoKGUgCVAeNBVJ8z2UTLP4fKZLeSD4PNguy5on6Liehx3zjX-88JwlM2OTemrSGOPmHLJ3V81Vkuo4MzNSCp99Mq-w1XfA1SroqYCNqSJxN-GqAmQzCJxTHiwtAkJr9bh2~mCF7PNAlRRuORxsF~BnFfdU6~YjnFATheg77HNMFMcvEbsrHXMyXORegwQgW2Jx2YO7ZcNXO8-M3Pz8jlGUyraCNSBw3s3YZkUDm3hoyDWZhRyFpsJTaHUYKUBbkpuME0WC3XyOPxsRVLiVQ__"),
-                          fit: BoxFit.cover,
+                    if (!booking.isCancelled)
+                      Text(
+                        booking.isCompleted 
+                            ? "Completed" 
+                            : "OTP: ${booking.otp}  ID: ${booking.id.substring(booking.id.length - 4)}",
+                        style: TextStyle(
+                          fontSize: screenWidth * 0.03,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.red.shade400,
                         ),
                       ),
+                  ],
+                ),
+                SizedBox(height: screenHeight * 0.015),
+    
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              Icon(
+                                Icons.settings,
+                                size: screenWidth * 0.04, 
+                                color: Colors.black87,
+                              ),
+                              SizedBox(width: screenWidth * 0.02),
+                              Text(
+                                booking.car.type == 'automatic' ? "Automatic" : "Manual", 
+                                style: TextStyle(
+                                  fontSize: screenWidth * 0.035,
+                                  color: const Color.fromARGB(255, 0, 0, 0)
+                                      .withOpacity(0.9),
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: screenHeight * 0.012), 
+    
+                          Row(
+                            children: [
+                              Icon(
+                                Icons.people,
+                                size: screenWidth * 0.04,
+                                color: Colors.black87,
+                              ),
+                              SizedBox(width: screenWidth * 0.02),
+                              Text(
+                                "${booking.car.seats} Seaters",
+                                style: TextStyle(
+                                  fontSize: screenWidth * 0.035, 
+                                  color: const Color.fromARGB(255, 0, 0, 0)
+                                      .withOpacity(0.9),
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: screenHeight * 0.015), 
+    
+                          Text(
+                            "Collect Date & time: ${_formatDate(booking.rentalStartDate)}, ${_formatTime(booking.rentalStartDate)}", 
+                            style: TextStyle(
+                              fontSize: screenWidth * 0.025, 
+                              color: const Color.fromARGB(255, 0, 0, 0),
+                            ),
+                          ),
+                          SizedBox(height: screenHeight * 0.008), 
+                          Text(
+                            "Return Date & time: ${_formatDate(booking.rentalEndDate)}, ${_formatTime(booking.rentalEndDate)}",
+                            style: TextStyle(
+                              fontSize: screenWidth * 0.025, 
+                              color: const Color.fromARGB(255, 0, 0, 0),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+    
+                    Container(
+                      width: screenWidth * 0.32,
+                      height: screenHeight * 0.08,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(screenWidth * 0.02),
+                        color: Colors.grey.shade300,
+                        image: booking.car.image.isNotEmpty 
+                            ? DecorationImage(
+                                image: NetworkImage(booking.car.image[0]),
+                                fit: BoxFit.cover,
+                              )
+                            : null,
+                      ),
+                      child: booking.car.image.isEmpty
+                          ? Icon(
+                              Icons.directions_car,
+                              size: screenWidth * 0.12,
+                              color: Colors.black54,
+                            )
+                          : null,
                     ),
                   ],
                 ),
               ],
             ),
-            const SizedBox(height: 2),
-            Text(
-              "Collect Date & time: $collectionDate, $collectionTime",
-              style: TextStyle(fontSize: 9, color: Colors.grey.shade700),
-            ),
-            const SizedBox(height: 4),
-            Text(
-              "Return Date & time: $returnDate, $returnTime",
-              style: TextStyle(fontSize: 9, color: Colors.grey.shade700),
-            ),
-          ],
-        ),
-        Positioned(
-          bottom: -16,
-          right: -17,
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-            decoration: BoxDecoration(
-              color: Colors.indigo.shade900,
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(10),
-                bottomRight: Radius.circular(10),
+          ),
+    
+          Positioned(
+            bottom: 0,
+            right: 0,
+            child: Container(
+              padding: EdgeInsets.symmetric(
+                horizontal: screenWidth * 0.03, 
+                vertical: screenHeight * 0.01, 
               ),
-            ),
-            child: Text(
-              "₹$price/-",
-              style: const TextStyle(
-                fontSize: 14,
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
+              decoration: BoxDecoration(
+                color: const Color(0XFF1808C5),
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(screenWidth * 0.03),
+                  bottomRight: Radius.circular(screenWidth * 0.03),
+                ),
+              ),
+              child: Text(
+                "₹${booking.totalPrice.toStringAsFixed(0)}/-",
+                style: TextStyle(
+                  fontSize: screenWidth * 0.035,
+                  color: const Color.fromARGB(255, 255, 255, 255),
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           ),
-        ),
-      ],
-        ),
+    
+          // Cancelled overlay
+          if (booking.isCancelled)
+            Positioned.fill(
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.black.withOpacity(0.5),
+                  borderRadius: BorderRadius.circular(screenWidth * 0.03),
+                ),
+                alignment: Alignment.center,
+                child: Text(
+                  "Cancelled",
+                  style: TextStyle(
+                    color: const Color.fromARGB(255, 255, 255, 255),
+                    fontSize: screenWidth * 0.07,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
+        ],
       ),
-    );
+    ),
+  );
+}
 
-  }
+String _formatDate(DateTime dateTime) {
+  return "${dateTime.day.toString().padLeft(2, '0')}/${dateTime.month.toString().padLeft(2, '0')}/${dateTime.year}";
+}
+
+String _formatTime(DateTime dateTime) {
+  return "${dateTime.hour.toString().padLeft(2, '0')}:${dateTime.minute.toString().padLeft(2, '0')}";
+}
 }

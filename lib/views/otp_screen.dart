@@ -27,16 +27,16 @@ class _OtpScreenState extends State<OtpScreen> {
               border: Border.all(color: Colors.black, width: 2),
             ),
           ),
-          Positioned(
+          const Positioned(
             top: -100,
             left: -100,
-            child: const BlurredCircle(color: Color(0xFF2E2EFF)),
+            child: BlurredCircle(color: Color(0xFF2E2EFF)),
           ),
 
-          Positioned(
+          const Positioned(
             top: 100,
             left: 200,
-            child: const BlurredCircle(color: Color(0xFF2E2EFF)),
+            child: BlurredCircle(color: Color(0xFF2E2EFF)),
           ),
 
           Align(
@@ -47,7 +47,7 @@ class _OtpScreenState extends State<OtpScreen> {
               padding: const EdgeInsets.all(24),
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.only(
+                borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(40),
                   topRight: Radius.circular(40),
                 ),
@@ -62,23 +62,23 @@ class _OtpScreenState extends State<OtpScreen> {
                     style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 8),
-                  Center(
+                  const Center(
                     child: CircleAvatar(
                       radius: 50,
                       backgroundImage: NetworkImage("https://s3-alpha-sig.figma.com/img/f641/434d/9033e72f032ba28554095623174e2a9c?Expires=1745798400&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=sr3Bud6yNkgJYs-gs5jD1HRHD25r~LUoM70HmBUk9RuUI4-MDOfCvA5XJrC6UZ2UwyMJhiwFwSyLBi7x4IIys16qV51DalqhOtMIEfyLXFTq6qT1hlplb41QO5lzzfNgXhCK0RJGtO9-rgox4KIGm8CFrywqQcf4jLypNUpbMPeojqcPbrW8jya7NaJPruD1nKYwsJpYNiWgkohTYIQ7nbuosa7UwsBCZ6LWj-k4llvycvCNRE10wcbq3oUupzjDew12Vs8GCfBIH8Z7uoyr2WF4ErSjsPg75SuGI~ibs6Xu3yJUtWeuisMuWtTYPoemRUmS8Yfv1J-mmUu5fMhwCg__"),
                     ),
                   ),
-                  SizedBox(height: 50),
-                  Align(
+                  const SizedBox(height: 50),
+                  const Align(
                     alignment: Alignment.center,
-                    child: const Text(
+                    child: Text(
                       "We have sent a verification code to your phone\nat 123456789",
                       textAlign: TextAlign.center,
                       style: TextStyle(fontSize: 14, color: Colors.black54),
                     ),
                   ),
 
-                  SizedBox(height: 50),
+                  const SizedBox(height: 50),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: List.generate(4, (index) {
@@ -124,7 +124,7 @@ class _OtpScreenState extends State<OtpScreen> {
                   Align(
                     alignment: Alignment.center,
                     child: RichText(
-                      text: TextSpan(
+                      text: const TextSpan(
                         style: TextStyle(fontSize: 14, color: Colors.black54),
                         children: [
                           TextSpan(text: "Don't Receive code? "),
@@ -140,7 +140,7 @@ class _OtpScreenState extends State<OtpScreen> {
                     ),
                   ),
 
-                  SizedBox(height: 60),
+                  const SizedBox(height: 60),
                   SizedBox(
                     height: 46,
                     width: 350,
@@ -148,7 +148,7 @@ class _OtpScreenState extends State<OtpScreen> {
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (ctx) => SignupScreen()),
+                          MaterialPageRoute(builder: (ctx) => const SignupScreen()),
                         );
                       },
                       style: ElevatedButton.styleFrom(
@@ -157,7 +157,7 @@ class _OtpScreenState extends State<OtpScreen> {
                           borderRadius: BorderRadius.circular(8),
                         ),
                       ),
-                      child: Text(
+                      child: const Text(
                         "Verify Account",
                         style: TextStyle(color: Colors.white),
                       ),
