@@ -39,7 +39,7 @@ class _SplashScreenState extends State<SplashScreen> {
             print("uuuuuuuuuuuuufdhfdufhfdghdfghfdghfdghfduuuuuuuuuuuuu$userId");
 
         Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) => const HomeScreen()));
+            MaterialPageRoute(builder: (context) => const LoginScreen()));
       } catch (e) {
         // Handle error - userId might be invalid
         Navigator.of(context).pushReplacement(

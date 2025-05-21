@@ -44,7 +44,7 @@ class BookingSummaryService {
   Future<BookingSummary> getBookingSummary(String userId, String bookingId) async {
     print("uuuusser$userId");
     print("booki$bookingId");
-    final String url = 'https://carrentalbackent.onrender.com/api/users/booking-summary/6829d982b61e44b1a35f5ecf/682a42582336c000aab281d8';
+    final String url = 'https://carrentalbackent.onrender.com/api/users/booking-summary/$userId/$bookingId';
 
     try {
       print("helooooooooooooooooooooooooooooooomorning");

@@ -51,50 +51,36 @@ class _BookingScreenState extends State<BookingScreen> {
       length: 3,
       child: SafeArea(
         child: Scaffold(
+                appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: Padding(
+          padding: EdgeInsets.all(paddingValue * 0.7),
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.grey.shade200,
+              shape: BoxShape.circle,
+            ),
+            child: IconButton(
+              icon: Icon(Icons.arrow_back,
+                  color: Colors.black, size: screenWidth * 0.05),
+              onPressed: () => Navigator.pop(context),
+            ),
+          ),
+        ),
+        title: Text(
+          "Bookings",
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: screenWidth * 0.045,
+            fontWeight: FontWeight.w800,
+          ),
+        ),
+        centerTitle: true,
+      ),
           body: Column(
             children: [
-              SizedBox(height: screenHeight * 0.03),
-              Row(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.all(paddingValue),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.grey.shade200,
-                        shape: BoxShape.circle,
-                      ),
-                      child: IconButton(
-                        icon: Icon(
-                          Icons.arrow_back, 
-                          color: Colors.black,
-                          size: screenWidth * 0.06, 
-                        ),
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                      ),
-                    ),
-                  ),
-                  SizedBox(width: screenWidth * 0.1),
-                  Expanded(
-                    child: Row(
-                      children: [
-                        Text(
-                          "Bookings",
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: screenWidth * 0.045, 
-                            fontWeight: FontWeight.w800,
-                          ),
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(height: screenHeight * 0.02),
-              
+              SizedBox(height: screenHeight * 0.03),       
               Align(
                 alignment: Alignment.centerLeft,
                 child: TabBar(

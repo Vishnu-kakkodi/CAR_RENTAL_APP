@@ -48,11 +48,11 @@ class _ProfileViewState extends State<EditProfile> {
     final screenHeight = screenSize.height;
     final paddingValue = screenWidth * 0.04;
     return Scaffold(
-      appBar: AppBar(
+                              appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: Padding(
-          padding: EdgeInsets.all(paddingValue * 0.25),
+          padding: EdgeInsets.all(paddingValue * 0.7),
           child: Container(
             decoration: BoxDecoration(
               color: Colors.grey.shade200,
@@ -60,7 +60,7 @@ class _ProfileViewState extends State<EditProfile> {
             ),
             child: IconButton(
               icon: Icon(Icons.arrow_back,
-                  color: Colors.black, size: screenWidth * 0.06),
+                  color: Colors.black, size: screenWidth * 0.05),
               onPressed: () => Navigator.pop(context),
             ),
           ),

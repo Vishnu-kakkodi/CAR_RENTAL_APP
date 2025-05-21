@@ -169,6 +169,7 @@ import 'package:car_rental_app/providers/booking_provider.dart';
 import 'package:car_rental_app/providers/car_provider.dart';
 import 'package:car_rental_app/providers/date_time_provider.dart';
 import 'package:car_rental_app/providers/document_provider.dart';
+import 'package:car_rental_app/providers/location_provider.dart';
 import 'package:car_rental_app/providers/wallet_provider.dart';
 import 'package:car_rental_app/views/splash_screen.dart';
 import 'package:flutter/material.dart';
@@ -185,6 +186,8 @@ void main() {
       ChangeNotifierProvider(create: (_) => DateTimeProvider()),
       ChangeNotifierProvider(create: (_) => DocumentProvider()),
       ChangeNotifierProvider(create: (_) => WalletProvider()),
+              ChangeNotifierProvider(create: (_) => LocationProvider()),
+
     ],
     child: const MyApp(),
   ));

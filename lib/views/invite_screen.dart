@@ -323,9 +323,38 @@ class _InviteFriendsScreenState extends State<InviteFriendsScreen> {
     final horizontalPadding = screenWidth * 0.05; // 5% of screen width
     final verticalSpacing = isSmallDevice ? 16.0 : 24.0;
     final imageHeight = isSmallDevice ? screenHeight * 0.2 : screenHeight * 0.25;
+            final paddingValue = screenWidth * 0.04;
+
     
     return Scaffold(
       backgroundColor: Colors.white,
+                              appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: Padding(
+          padding: EdgeInsets.all(paddingValue * 0.7),
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.grey.shade200,
+              shape: BoxShape.circle,
+            ),
+            child: IconButton(
+              icon: Icon(Icons.arrow_back,
+                  color: Colors.black, size: screenWidth * 0.05),
+              onPressed: () => Navigator.pop(context),
+            ),
+          ),
+        ),
+        title: Text(
+          "Invite your friends",
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: screenWidth * 0.045,
+            fontWeight: FontWeight.w800,
+          ),
+        ),
+        centerTitle: true,
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -333,24 +362,6 @@ class _InviteFriendsScreenState extends State<InviteFriendsScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Back arrow and title
-                SizedBox(height: isSmallDevice ? 20 : 40),
-                Row(
-                  children: [
-                    GestureDetector(
-                      onTap: () => Navigator.pop(context),
-                      child: const Icon(Icons.arrow_back),
-                    ),
-                    const SizedBox(width: 12),
-                    const Text(
-                      "Invite your friends",
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ],
-                ),
 
                 SizedBox(height: verticalSpacing),
 

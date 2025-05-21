@@ -85,6 +85,8 @@ flutter:
     - assets/map.png
     - assets/home_slide1.jpg
     - assets/home_slide2.jpg
+    - assets/tabler_edit.png
+    - assets/loading.png
 
     # - images/a_dot_ham.jpeg
 

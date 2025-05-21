@@ -134,8 +134,8 @@ factory Booking.fromJson(Map<String, dynamic> json) {
 }
 
   // Helper getters
-  bool get isPending => status.toLowerCase() == 'pending';
-  bool get isCompleted => status.toLowerCase() == 'completed';
+  bool get isPending => paymentStatus.toLowerCase() == 'pending';
+  bool get isCompleted => paymentStatus.toLowerCase() == 'completed';
 }
 
 class Car {

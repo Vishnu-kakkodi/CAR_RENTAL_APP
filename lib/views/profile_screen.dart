@@ -79,18 +79,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
     final paddingValue = screenWidth * 0.04; // 4% of screen width for padding
 
     return Scaffold(
-      appBar: AppBar(
+                              appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: Padding(
-          padding: EdgeInsets.all(paddingValue * 0.25),
+          padding: EdgeInsets.all(paddingValue * 0.7),
           child: Container(
             decoration: BoxDecoration(
               color: Colors.grey.shade200,
               shape: BoxShape.circle,
             ),
             child: IconButton(
-              icon: Icon(Icons.arrow_back, color: Colors.black, size: screenWidth * 0.06),
+              icon: Icon(Icons.arrow_back,
+                  color: Colors.black, size: screenWidth * 0.05),
               onPressed: () => Navigator.pop(context),
             ),
           ),

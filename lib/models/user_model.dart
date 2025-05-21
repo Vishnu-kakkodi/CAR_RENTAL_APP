@@ -119,25 +119,44 @@ class UserModel {
     this.wallet,
   });
 
-  factory UserModel.fromJson(Map<String, dynamic> json) {
-    // Handle both "_id" (from server) and "id" (if we've transformed it)
-    final id = json['_id'] ?? json['id'];
+  // factory UserModel.fromJson(Map<String, dynamic> json) {
+  //   // Handle both "_id" (from server) and "id" (if we've transformed it)
+  //   final id = json['_id'] ?? json['id'];
     
-    return UserModel(
-      id: id,
-      mobile: json['mobile'],
-      name: json['name'],
-      email: json['email'],
-      // Handle case where myBookings might not be present in the response
-      myBookings: json['myBookings'] != null
-          ? List<String>.from(json['myBookings'])
-          : [],
-      profileImage: json['profileImage'],
-      code: json['code'],
-      wallet: json['wallet'],
-    );
-  }
+  //   return UserModel(
+  //     id: id,
+  //     mobile: json['mobile'],
+  //     name: json['name'],
+  //     email: json['email'],
+  //     // Handle case where myBookings might not be present in the response
+  //     myBookings: json['myBookings'] != null
+  //         ? List<String>.from(json['myBookings'])
+  //         : [],
+  //     profileImage: json['profileImage'],
+  //     code: json['code'],
+  //     wallet: json['wallet'],
+  //   );
+  // }
 
+
+factory UserModel.fromJson(Map<String, dynamic> json) {
+  // Handle both "_id" (from server) and "id" (if we've transformed it)
+  final id = json['_id'] ?? json['id'];
+  
+  return UserModel(
+    id: id,
+    mobile: json['mobile'],
+    name: json['name'],
+    email: json['email'],
+    // Handle case where myBookings might not be present in the response
+    myBookings: json['myBookings'] != null
+        ? List<String>.from(json['myBookings'])
+        : [], // Default to empty list
+    profileImage: json['profileImage'],
+    code: json['code'] ?? '', // Provide default empty string if null
+    wallet: json['wallet'],
+  );
+}
   Map<String, dynamic> toJson() {
     final data = {
       '_id': id,

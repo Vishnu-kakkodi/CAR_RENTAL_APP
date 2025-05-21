@@ -298,6 +298,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+import 'package:car_rental_app/views/login_screen.dart';
 
 import 'package:car_rental_app/views/home_screen.dart';
 import 'package:car_rental_app/widgect/blurred_circle.dart';
@@ -627,7 +628,7 @@ class _KycVerificationScreenState extends State<KycVerificationScreen> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   const SizedBox(height: 25),
-                  Image.asset('assets/loading.jpeg', height: 100),
+                  Image.asset('assets/loading.png', height: 100),
                   const SizedBox(height: 20),
                   const Text(
                     'Documents are under verification',
@@ -648,7 +649,7 @@ class _KycVerificationScreenState extends State<KycVerificationScreen> {
                         Navigator.pop(context);
                         Navigator.pushReplacement(
                           context,
-                          MaterialPageRoute(builder: (ctx) => const HomeScreen()),
+                          MaterialPageRoute(builder: (ctx) => const LoginScreen()),
                         );
                       },
                       style: ElevatedButton.styleFrom(

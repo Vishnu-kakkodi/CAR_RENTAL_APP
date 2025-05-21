@@ -391,9 +391,38 @@ Future<void> _loadUserData() async {
     final verticalSpacing = screenHeight * 0.02;
     final horizontalPadding = screenWidth * 0.04;
     final fontSize = MediaQuery.of(context).textScaleFactor;
+        final paddingValue = screenWidth * 0.04;
+
     
     return SafeArea(
       child: Scaffold(
+                                appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: Padding(
+          padding: EdgeInsets.all(paddingValue * 0.7),
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.grey.shade200,
+              shape: BoxShape.circle,
+            ),
+            child: IconButton(
+              icon: Icon(Icons.arrow_back,
+                  color: Colors.black, size: screenWidth * 0.05),
+              onPressed: () => Navigator.pop(context),
+            ),
+          ),
+        ),
+        title: Text(
+          "Wallet",
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: screenWidth * 0.045,
+            fontWeight: FontWeight.w800,
+          ),
+        ),
+        centerTitle: true,
+      ),
         body: Consumer<WalletProvider>(
           builder: (context, walletProvider, child) {
             return Padding(
@@ -401,38 +430,6 @@ Future<void> _loadUserData() async {
               child: Column(
                 children: [
                   SizedBox(height: verticalSpacing),
-                  Row(
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.all(screenWidth * 0.04),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: Colors.grey.shade200,
-                            shape: BoxShape.circle,
-                          ),
-                          child: IconButton(
-                            icon: const Icon(Icons.arrow_back, color: Colors.black),
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                          ),
-                        ),
-                      ),
-                      SizedBox(width: screenWidth * 0.2),
-                      Align(
-                        alignment: Alignment.center,
-                        child: Text(
-                          "Wallet",
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 18 * fontSize,
-                            fontWeight: FontWeight.w800,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-
                   Container(
                     margin: EdgeInsets.all(horizontalPadding),
                     padding: EdgeInsets.all(horizontalPadding),
